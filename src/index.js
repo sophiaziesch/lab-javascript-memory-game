@@ -45,6 +45,49 @@ window.addEventListener('load', (event) => {
   document.querySelectorAll('.card').forEach((card) => {
     card.addEventListener('click', () => {
       // TODO: write some code here
+      card.classList.toggle('turned');
+      pickedCards.push(card);
+    
+      if (pickedCards.length === 2) {
+        const [card1, card2] = pickedCards;
+        const isPair = checkIfPair(card1, card2);
+      
+        if (isPair) {
+          card1.classList.add('blocked');
+          card2.classList.add('blocked');
+          this.pairsClicked += 1;
+          this.pairsGuessed += 1;
+        } else {
+          setTimeout(() => {
+          card1.classList.toggle('turned');
+          card2.classList.toggle('turned');
+          }, 1000);
+          this.pairsClicked += 1;
+        }
+        pickedCards = [];
+      }
+      if (checkIfFinished()) {
+        console.log('Game over!');
+      }
+      
+
+
+
+
+      /* card.classList.toggle("turned");
+      const [card1, card2] = pickedCards
+      const isPair = checkIfPair(card1.name, card2.name)
+      
+      if(isPair){
+        card1.classList.toggle("blocked");
+        card2.classList.toggle("blocked");
+        this.pairsClicked += 1;
+        this.pairsGuessed += 1;
+      } else {
+
+
+      } */
+
       console.log(`Card clicked: ${card}`);
     });
   });
